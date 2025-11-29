@@ -3,7 +3,7 @@ package com.andrew.doctor_appointment_system.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.andrew.doctor_appointment_system.Enum.ApointmentStatus;
+import com.andrew.doctor_appointment_system.enums.ApointmentStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
