@@ -1,6 +1,6 @@
 package com.andrew.doctor_appointment_system.model;
 
-import com.andrew.doctor_appointment_system.Enum.Role;
+import com.andrew.doctor_appointment_system.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
