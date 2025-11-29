@@ -1,4 +1,4 @@
-package com.andrew.doctor_appointment_system.service.common;
+package com.andrew.doctor_appointment_system.service.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
