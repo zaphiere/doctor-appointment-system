@@ -16,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.andrew.doctor_appointment_system.enums.Role;
+import com.andrew.doctor_appointment_system.handler.security.CustomAccessDeniedHandler;
+import com.andrew.doctor_appointment_system.handler.security.CustomAuthenticationEntryPoint;
 import com.andrew.doctor_appointment_system.service.security.JwtFilter;
 
 @Configuration
@@ -26,6 +28,12 @@ public class SecurityConfig {
 	
 	@Autowired
 	private UserDetailsService userDetailService;
+	
+	@Autowired
+	private CustomAccessDeniedHandler accessDeniedHandler;
+	
+	@Autowired
+	private CustomAuthenticationEntryPoint authenticationEntryPoint;
 	
 	SecurityConfig(JwtFilter jwtFilter) {
 		this.jwtFilter = jwtFilter;
@@ -57,6 +65,10 @@ public class SecurityConfig {
 					.requestMatchers("/api/doctor/**").hasRole(Role.DOCTOR.name())
 					.requestMatchers("/api/patient/**").hasRole(Role.PATIENT.name())
 					.anyRequest().authenticated()
+				)
+			.exceptionHandling(exception -> exception
+					.accessDeniedHandler(accessDeniedHandler)
+					.authenticationEntryPoint(authenticationEntryPoint)
 				)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
