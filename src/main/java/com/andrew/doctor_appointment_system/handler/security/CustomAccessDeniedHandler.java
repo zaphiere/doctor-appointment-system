@@ -20,7 +20,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		
-		JsonResponseUtil.writeResponse(response, HttpStatus.FORBIDDEN, "Access denied");
+		JsonResponseUtil.writeResponse(response, HttpStatus.FORBIDDEN, accessDeniedException.getMessage());
 	}
 	
 	
