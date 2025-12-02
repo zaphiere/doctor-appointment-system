@@ -66,13 +66,23 @@ public class ApiResponseUtil {
 			);
 	}
 	
+	// 400 BAD REQUEST to handle validation fails from @Valid
+	public static ApiResponse validationFailed(Object data) {
+		return new ApiResponse(
+				HttpStatus.BAD_REQUEST.value(),
+				HttpStatus.BAD_REQUEST.getReasonPhrase(),
+				"Validation Failed", 
+				data
+			);
+	}
+	
 	// 500 INTERNAL SERVER ERROR
-	public static ApiResponse internalError(String message) {
+	public static ApiResponse internalError(Object data) {
 		return new ApiResponse(
 				HttpStatus.INTERNAL_SERVER_ERROR.value(),
 				HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-				message,
-				null
+				"An unexpected error occured",
+				data
 			);
 	}
 }

@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.andrew.doctor_appointment_system.enums.Role;
 import com.andrew.doctor_appointment_system.model.User;
-import com.andrew.doctor_appointment_system.model.dto.AdminUserRequest;
+import com.andrew.doctor_appointment_system.model.dto.AdminUserCreateRequest;
+import com.andrew.doctor_appointment_system.model.dto.AdminUserUpdateRequest;
 import com.andrew.doctor_appointment_system.model.dto.ProfileUpdateRequest;
 import com.andrew.doctor_appointment_system.repository.UserRepository;
+
 
 @Service
 public class AdminService {
@@ -25,9 +27,23 @@ public class AdminService {
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 	private static final Set<Role> ALLOWED_ROLES = Set.of(Role.ADMIN, Role.SUPERADMIN);
 
-	public User saveUser(User user) {
+	public User saveUser(User user, AdminUserCreateRequest request) {
 		
-		user.setPassword(encoder.encode(user.getPassword()));
+		if(request.getUsername() != null && !request.getUsername().isBlank()) {
+			user.setUsername(request.getUsername());
+		}
+		
+		if(request.getPassword() != null && !request.getPassword().isBlank()) {
+			user.setPassword(encoder.encode(request.getPassword()));
+		}
+		
+		if(request.getRole() != null) {
+			if(!ALLOWED_ROLES.contains(request.getRole())) {
+				throw new IllegalArgumentException("Role must be ADMIN or SUPERADMIN");
+			}
+			
+			user.setRole(request.getRole());
+		}
 		
 		return repo.save(user);
 	}
@@ -41,7 +57,7 @@ public class AdminService {
 		
 		repo.findById(id).ifPresent(entity -> {
 			entity.setDeletedAt(LocalDateTime.now());
-			saveUser(entity);
+			repo.save(entity);
 		});
 	}
 
@@ -73,7 +89,7 @@ public class AdminService {
 		return repo.save(admin);
 	}
 
-	public User updateUserByAdmin(User user, AdminUserRequest request) {
+	public User updateUserByAdmin(User user, AdminUserUpdateRequest request) {
 		
 		if(request.getUsername() != null && !request.getUsername().isBlank()) {
 			user.setUsername(request.getUsername());
