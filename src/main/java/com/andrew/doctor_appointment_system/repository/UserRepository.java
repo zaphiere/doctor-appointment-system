@@ -27,4 +27,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 			Pageable pageable
 	);
 
+	// Check if user name exists in DB
+	boolean existsByUsername(String username);
 }

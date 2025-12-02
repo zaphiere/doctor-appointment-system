@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.andrew.doctor_appointment_system.config.AppConstant;
 import com.andrew.doctor_appointment_system.model.User;
-import com.andrew.doctor_appointment_system.model.dto.AdminUserRequest;
+import com.andrew.doctor_appointment_system.model.dto.AdminUserCreateRequest;
+import com.andrew.doctor_appointment_system.model.dto.AdminUserUpdateRequest;
 import com.andrew.doctor_appointment_system.model.dto.ApiResponse;
 import com.andrew.doctor_appointment_system.model.dto.ProfileUpdateRequest;
 import com.andrew.doctor_appointment_system.service.admin.AdminService;
 import com.andrew.doctor_appointment_system.util.ApiResponseUtil;
 import com.andrew.doctor_appointment_system.util.AuthUserUtil;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -39,9 +42,12 @@ public class AccountController {
 	private AuthUserUtil authUserUtil;
 	
 	@PostMapping("/register")
-	public ResponseEntity<ApiResponse> register(@RequestBody User user) {
+	public ResponseEntity<ApiResponse> register(
+			@Valid @RequestBody AdminUserCreateRequest request,
+			User user
+		) {
 		
-		User adminAcount = service.saveUser(user);
+		User adminAcount = service.saveUser(user, request);
 
 		return new ResponseEntity<>(
 			ApiResponseUtil.created("Admin account successfully created", adminAcount), 
@@ -115,7 +121,10 @@ public class AccountController {
 	
 	@PutMapping("/{id}/edit")
 	@PreAuthorize("hasRole('SUPERADMIN')")
-	public ResponseEntity<ApiResponse>editAdminById(@PathVariable int id, @RequestBody AdminUserRequest request) {
+	public ResponseEntity<ApiResponse>editAdminById(
+			@PathVariable int id, 
+			@Valid @RequestBody AdminUserUpdateRequest request
+	) {
 		
 		Optional<User> user = service.getAdminById(id);
 		Optional<User> authUser = authUserUtil.getCurrentAuthUser();
