@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.andrew.doctor_appointment_system.enums.Role;
 import com.andrew.doctor_appointment_system.model.User;
@@ -27,15 +28,11 @@ public class AdminService {
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 	private static final Set<Role> ALLOWED_ROLES = Set.of(Role.ADMIN, Role.SUPERADMIN);
 
+	@Transactional
 	public User saveUser(User user, AdminUserCreateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			user.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			user.setPassword(encoder.encode(request.getPassword()));
-		}
+		user.setUsername(request.getUsername());
+		user.setPassword(encoder.encode(request.getPassword()));
 		
 		if(request.getRole() != null) {
 			if(!ALLOWED_ROLES.contains(request.getRole())) {
@@ -53,6 +50,7 @@ public class AdminService {
 		return repo.findByIdAndRoleIn(id, Arrays.asList(Role.ADMIN, Role.SUPERADMIN));
 	}
 
+	@Transactional
 	public void delete(int id) {
 		
 		repo.findById(id).ifPresent(entity -> {
@@ -75,29 +73,20 @@ public class AdminService {
 		);
 	}
 
+	@Transactional
 	public User update(User admin, ProfileUpdateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			admin.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			admin.setPassword(encoder.encode(request.getPassword()));
-		}
-		
+		admin.setUsername(request.getUsername());
+		admin.setPassword(encoder.encode(request.getPassword()));
 		
 		return repo.save(admin);
 	}
 
+	@Transactional
 	public User updateUserByAdmin(User user, AdminUserUpdateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			user.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			user.setPassword(encoder.encode(request.getPassword()));
-		}
+		user.setUsername(request.getUsername());
+		user.setPassword(encoder.encode(request.getPassword()));
 		
 		if(request.getRole() != null) {
 			if(!ALLOWED_ROLES.contains(request.getRole())) {

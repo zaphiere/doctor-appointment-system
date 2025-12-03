@@ -7,7 +7,9 @@ import com.andrew.doctor_appointment_system.validation.ValidAdminRole;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class AdminUserCreateRequest {
 
 	@UniqueUsername
@@ -22,7 +24,7 @@ public class AdminUserCreateRequest {
 	@Pattern(
 			regexp = "^[a-zA-Z0-9]+$",
 			message = "Username must not contain special character"
-		)
+	)
 	private String username;
 	
 	@NotNull(
@@ -40,29 +42,4 @@ public class AdminUserCreateRequest {
 	)
 	@ValidAdminRole
 	private Role role;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
 }

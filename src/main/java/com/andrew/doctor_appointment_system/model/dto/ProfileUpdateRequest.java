@@ -4,7 +4,9 @@ import com.andrew.doctor_appointment_system.validation.UniqueUsername;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class ProfileUpdateRequest {
 	
 	@UniqueUsername
@@ -25,18 +27,4 @@ public class ProfileUpdateRequest {
 			message = "Password must be between 5 and 20 characters"
 		)
 	private String password;
-
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 }

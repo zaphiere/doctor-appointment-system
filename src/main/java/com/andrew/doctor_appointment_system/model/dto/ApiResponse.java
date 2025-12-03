@@ -2,6 +2,9 @@ package com.andrew.doctor_appointment_system.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.Data;
+
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse {
 	
@@ -16,24 +19,5 @@ public class ApiResponse {
 		this.error = error;
 		this.message = message;
 		this.data = data;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-
-	public String getError() {
-		return error;
-	}
-
-
-	public String getMessage() {
-		return message;
-	}
-
-
-	public Object getData() {
-		return data;
 	}
 }

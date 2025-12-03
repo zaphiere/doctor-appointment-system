@@ -56,7 +56,7 @@ public class AccountController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<ApiResponse>search(
+	public ResponseEntity<ApiResponse> search(
 			@RequestParam String username,
 			@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_NUMBER + "") int page,
 			@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_SIZE + "") int size
