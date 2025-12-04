@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andrew.doctor_appointment_system.model.Specialization;
+import com.andrew.doctor_appointment_system.model.dto.SpecializationDTO;
 import com.andrew.doctor_appointment_system.model.dto.SpecializationListResponse;
 import com.andrew.doctor_appointment_system.model.dto.SpecializationRequest;
 import com.andrew.doctor_appointment_system.repository.DoctorSpecializationRepository;
@@ -32,12 +33,20 @@ public class AdminSpecService {
 	 * @return
 	 */
 	@Transactional
-	public Specialization save(
+	public SpecializationDTO save(
 			Specialization specialization,
 			SpecializationRequest request
 	) {
 		
-		return repo.save(specialization);
+		specialization.setName(request.getName());
+		
+		Specialization saveSpec = repo.save(specialization);
+		
+		SpecializationDTO dto = new SpecializationDTO();
+		dto.setName(saveSpec.getName());
+		dto.setId(saveSpec.getId());
+
+		return dto;
 	}
 
 	/**
@@ -59,9 +68,13 @@ public class AdminSpecService {
 	 * @param id
 	 * @return
 	 */
-	public Optional<Specialization> getSpecById(int id) {
+	public Specialization getSpecById(int id) {
 		
-		return repo.findById(id);
+		Specialization spec = repo.findById(id).orElseThrow(() -> 
+			new IllegalArgumentException("Specialization not found")
+		);
+		
+		return spec;
 	}
 
 	/**
@@ -72,16 +85,16 @@ public class AdminSpecService {
 	@Transactional
 	public void delete(int id) {
 		
-		repo.findById(id).ifPresent(entity -> {
-			dsRepo.findAllBySpecialization(entity).forEach(ds -> {
-				ds.setDeletedAt(LocalDateTime.now());
-				dsRepo.save(ds);
-			});
-			
-			entity.setDeletedAt(LocalDateTime.now());
-			repo.save(entity);
-		});
-		
+		Specialization spec = repo.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Specialization not found"));
+
+	    dsRepo.findAllBySpecialization(spec).forEach(ds -> {
+	        ds.setDeletedAt(LocalDateTime.now());
+	        dsRepo.save(ds);
+	    });
+
+	    spec.setDeletedAt(LocalDateTime.now());
+	    repo.save(spec);
 	}
 
 }

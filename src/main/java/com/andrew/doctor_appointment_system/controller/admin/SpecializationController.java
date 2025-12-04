@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.andrew.doctor_appointment_system.model.Specialization;
 import com.andrew.doctor_appointment_system.model.dto.ApiResponse;
+import com.andrew.doctor_appointment_system.model.dto.SpecializationDTO;
 import com.andrew.doctor_appointment_system.model.dto.SpecializationListResponse;
 import com.andrew.doctor_appointment_system.model.dto.SpecializationRequest;
 import com.andrew.doctor_appointment_system.service.admin.AdminSpecService;
@@ -45,7 +46,7 @@ public class SpecializationController {
 			Specialization specialization
 		) {
 		
-		Specialization spec = service.save(specialization, request);
+		SpecializationDTO spec = service.save(specialization, request);
 		
 		return new ResponseEntity<>(
 			ApiResponseUtil.created("New specialization added", spec),
@@ -83,16 +84,8 @@ public class SpecializationController {
 			@Valid @RequestBody SpecializationRequest request
 	) {
 		
-		Optional<Specialization> spec = service.getSpecById(id);
-		
-		if(spec.isEmpty()) {
-			return new ResponseEntity<>(
-				ApiResponseUtil.notFount("Specialization not found"),
-				HttpStatus.NOT_FOUND
-			);
-		}
-		
-		Specialization update = service.save(spec.get(), request);
+		Specialization spec = service.getSpecById(id);
+		SpecializationDTO update = service.save(spec, request);
 		
 		return new ResponseEntity<>(
 			ApiResponseUtil.ok("Specialization updated", update),
@@ -109,15 +102,6 @@ public class SpecializationController {
 	 */
 	@DeleteMapping("/{id}/delete")
 	public ResponseEntity<ApiResponse> delete(@PathVariable int id) {
-		
-		Optional<Specialization> spec = service.getSpecById(id);
-		
-		if(spec.isEmpty()) {
-			return new ResponseEntity<>(
-				ApiResponseUtil.notFount("Specialization not found"),
-				HttpStatus.NOT_FOUND
-			);
-		}
 		
 		service.delete(id);
 		
