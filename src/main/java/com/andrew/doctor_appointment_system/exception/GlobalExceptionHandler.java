@@ -13,6 +13,8 @@ import org.springframework.web.context.request.WebRequest;
 import com.andrew.doctor_appointment_system.model.dto.ApiResponse;
 import com.andrew.doctor_appointment_system.util.ApiResponseUtil;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
@@ -41,6 +43,17 @@ public class GlobalExceptionHandler {
 		ApiResponse response = ApiResponseUtil.badRequest(ex.getMessage());
 		
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	/*
+	 * Handle Not Found Exceptions
+	 */
+	@ExceptionHandler(EntityNotFoundException.class)
+	public ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException ex) {
+		
+		ApiResponse response = ApiResponseUtil.notFount(ex.getMessage());
+		
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 	
 	/**

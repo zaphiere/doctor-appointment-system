@@ -1,4 +1,4 @@
-package com.andrew.doctor_appointment_system.util;
+package com.andrew.doctor_appointment_system.util.mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

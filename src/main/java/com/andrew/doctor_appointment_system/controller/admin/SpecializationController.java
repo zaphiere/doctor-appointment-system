@@ -32,6 +32,13 @@ public class SpecializationController {
 	@Autowired
 	private AdminSpecService service;
 	
+	/**
+	 * Register new specialization
+	 * 
+	 * @param request
+	 * @param specialization
+	 * @return
+	 */
 	@PostMapping("/register")
 	public ResponseEntity<ApiResponse> register(
 			@Valid @RequestBody SpecializationRequest request,
@@ -46,6 +53,12 @@ public class SpecializationController {
 		);
 	}
 	
+	/**
+	 * Get list of all specialization
+	 * To be used for dropdown selection
+	 * 
+	 * @return
+	 */
 	@GetMapping("/list")
 	public ResponseEntity<ApiResponse> getAllSpecialization() {
 		
@@ -57,6 +70,13 @@ public class SpecializationController {
 		);
 	}
 	
+	/**
+	 * Edit specialization
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/{id}/edit")
 	public ResponseEntity<ApiResponse> edit(
 			@PathVariable int id,
@@ -81,6 +101,12 @@ public class SpecializationController {
 		
 	}
 	
+	/**
+	 * Delete specialization by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}/delete")
 	public ResponseEntity<ApiResponse> delete(@PathVariable int id) {
 		

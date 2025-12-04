@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class DoctorUserCreateResponse {
+public class DoctorProfileDTO {
 	
 	private int userId;
 	private String username;
@@ -17,5 +17,5 @@ public class DoctorUserCreateResponse {
 	private int mobileNo;
 	private String email;
 	
-	private List<SpecializationDTO> specialization;
+	private List<String> specialization;
 }
