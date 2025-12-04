@@ -55,8 +55,15 @@ public class AccountController {
 		);
 	}
 	
+	/* Search admin users by username
+	 * 
+	 * @param username
+	 * @param page
+	 * @param size
+	 * @return
+	 */
 	@GetMapping("/search")
-	public ResponseEntity<ApiResponse>search(
+	public ResponseEntity<ApiResponse> search(
 			@RequestParam String username,
 			@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_NUMBER + "") int page,
 			@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_SIZE + "") int size
@@ -71,7 +78,10 @@ public class AccountController {
 		);
 	}
 	
-	
+	/* Get current authenticated user profile
+	 * 
+	 * @return
+	 */
 	@GetMapping("/profile")
 	public ResponseEntity<ApiResponse> getProfile() {
 		
@@ -83,6 +93,11 @@ public class AccountController {
 		);
 	}
 	
+	/* Edit current authenticated user profile
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/profile/edit")
 	public ResponseEntity<ApiResponse> editProfile(@RequestBody ProfileUpdateRequest request) {
 		
@@ -101,7 +116,13 @@ public class AccountController {
 			HttpStatus.OK
 		);
 	}
-	
+
+	/**
+	 * Get admin user by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse>getAdminById(@PathVariable int id) {
 		
@@ -119,6 +140,13 @@ public class AccountController {
 		);
 	}
 	
+	/**
+	 * Edit admin user by id
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/{id}/edit")
 	@PreAuthorize("hasRole('SUPERADMIN')")
 	public ResponseEntity<ApiResponse>editAdminById(
@@ -158,6 +186,12 @@ public class AccountController {
 		
 	}
 	
+	/**
+	 * Delete admin user by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}/delete")
 	@PreAuthorize("hasRole('SUPERADMIN')")
 	public ResponseEntity<ApiResponse> delete(@PathVariable int id) {

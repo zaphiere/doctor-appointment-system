@@ -1,6 +1,5 @@
 package com.andrew.doctor_appointment_system.service.admin;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.andrew.doctor_appointment_system.enums.Role;
 import com.andrew.doctor_appointment_system.model.User;
@@ -27,15 +27,18 @@ public class AdminService {
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 	private static final Set<Role> ALLOWED_ROLES = Set.of(Role.ADMIN, Role.SUPERADMIN);
 
+	/**
+	 * Save admin user account
+	 * 
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@Transactional
 	public User saveUser(User user, AdminUserCreateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			user.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			user.setPassword(encoder.encode(request.getPassword()));
-		}
+		user.setUsername(request.getUsername());
+		user.setPassword(encoder.encode(request.getPassword()));
 		
 		if(request.getRole() != null) {
 			if(!ALLOWED_ROLES.contains(request.getRole())) {
@@ -48,24 +51,48 @@ public class AdminService {
 		return repo.save(user);
 	}
 
+	/**
+	 * Get admin user by id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Optional<User> getAdminById(int id) {
 		
 		return repo.findByIdAndRoleIn(id, Arrays.asList(Role.ADMIN, Role.SUPERADMIN));
 	}
 
+	/**
+	 * Delete admin user by id
+	 * 
+	 * @param id
+	 */
+	@Transactional
 	public void delete(int id) {
 		
-		repo.findById(id).ifPresent(entity -> {
-			entity.setDeletedAt(LocalDateTime.now());
-			repo.save(entity);
-		});
+		repo.findById(id).orElseThrow(() 
+				-> new IllegalArgumentException("Admin user not found"));
+		repo.deleteById(id);
 	}
 
+	/**
+	 * Find admin user by username
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Optional<User> findByUsername(String name) {
 		
 		return Optional.of(repo.findByUsername(name));
 	}
 
+	/**
+	 * Search admin users by username
+	 * 
+	 * @param username
+	 * @param pageable
+	 * @return
+	 */
 	public Page<User> search(String username, Pageable pageable) {
 		
 		return repo.findByRoleInAndUsernameContainingIgnoreCase(
@@ -75,29 +102,34 @@ public class AdminService {
 		);
 	}
 
+	/**
+	 * Update own profile
+	 * 
+	 * @param admin
+	 * @param request
+	 * @return
+	 */
+	@Transactional
 	public User update(User admin, ProfileUpdateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			admin.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			admin.setPassword(encoder.encode(request.getPassword()));
-		}
-		
+		admin.setUsername(request.getUsername());
+		admin.setPassword(encoder.encode(request.getPassword()));
 		
 		return repo.save(admin);
 	}
 
+	/**
+	 * Update admin user by SUPERADMIN
+	 * 
+	 * @param user
+	 * @param request
+	 * @return
+	 */
+	@Transactional
 	public User updateUserByAdmin(User user, AdminUserUpdateRequest request) {
 		
-		if(request.getUsername() != null && !request.getUsername().isBlank()) {
-			user.setUsername(request.getUsername());
-		}
-		
-		if(request.getPassword() != null && !request.getPassword().isBlank()) {
-			user.setPassword(encoder.encode(request.getPassword()));
-		}
+		user.setUsername(request.getUsername());
+		user.setPassword(encoder.encode(request.getPassword()));
 		
 		if(request.getRole() != null) {
 			if(!ALLOWED_ROLES.contains(request.getRole())) {

@@ -31,7 +31,7 @@ public class Specialization extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String name;
 	
 	@OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)

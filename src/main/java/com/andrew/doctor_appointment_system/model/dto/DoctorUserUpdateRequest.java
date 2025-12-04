@@ -1,21 +1,20 @@
 package com.andrew.doctor_appointment_system.model.dto;
 
-import com.andrew.doctor_appointment_system.enums.Role;
-import com.andrew.doctor_appointment_system.validation.UniqueUsername;
-import com.andrew.doctor_appointment_system.validation.ValidAdminRole;
+import java.util.List;
 
+import com.andrew.doctor_appointment_system.validation.UniqueUsername;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class AdminUserCreateRequest {
-
+public class DoctorUserUpdateRequest {
+	
 	@UniqueUsername
-	@NotNull(
-		message = "Username is required"
-	)
 	@Size(
 		min = 5,
 		max = 20,
@@ -27,9 +26,6 @@ public class AdminUserCreateRequest {
 	)
 	private String username;
 	
-	@NotNull(
-		message = "Password is required"
-	)
 	@Size(
 		min = 5,
 		max = 20,
@@ -37,9 +33,27 @@ public class AdminUserCreateRequest {
 	)
 	private String password;
 	
-	@NotNull(
-		message = "Role is required"
+	@Size(
+		min = 1,
+		max = 20,
+		message = "First name must be between 1 and 50 characters"
 	)
-	@ValidAdminRole
-	private Role role;
+	private String firstname;
+	
+	@Size(
+		min = 1,
+		max = 50,
+		message = "First name must be between 1 and 50 characters"
+	)
+	private String lastname;
+	
+
+	private Integer mobileNo;
+
+	@Email (
+		message = "Enter a valid email format"
+	)
+	private String email;
+	
+	private List<Integer> specializationIds;
 }

@@ -11,7 +11,8 @@ import jakarta.validation.ConstraintValidatorContext;
 @Component
 public class UsernameValidator implements ConstraintValidator<UniqueUsername, String>{
 	
-	@Autowired UserRepository userRepository;
+	@Autowired 
+	UserRepository userRepository;
 
 	@Override
 	public boolean isValid(String username, ConstraintValidatorContext context) {
