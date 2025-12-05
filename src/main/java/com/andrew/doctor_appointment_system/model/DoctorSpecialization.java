@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE doctor_specializations SET delete_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE doctor_specializations SET deleted_at = NOW() WHERE id = ?")
 @Where(clause = "deleted_at IS NULL")
 public class DoctorSpecialization extends BaseEntity{
 	

@@ -28,7 +28,7 @@ public class Patient extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int patient_id;
+	private int id;
 	
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
