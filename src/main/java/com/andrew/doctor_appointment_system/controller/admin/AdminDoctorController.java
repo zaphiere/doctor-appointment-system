@@ -74,6 +74,7 @@ public class AdminDoctorController {
 		@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_NUMBER + "") int page,
 		@RequestParam(defaultValue = AppConstant.DEFAULT_PAGE_SIZE + "") int size
 	) {
+
 		Pageable pageable = PageRequest.of(page, size);
 		Page<DoctorSearchResultDTO> result = 
 				adminDoctorService.searchDoctors(query, specId, pageable);
