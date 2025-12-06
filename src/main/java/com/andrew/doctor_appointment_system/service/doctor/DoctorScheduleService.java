@@ -145,6 +145,7 @@ public class DoctorScheduleService {
 	 * @param request
 	 * @return
 	 */
+	@Transactional
 	public DoctorScheduleDTO updateDoctorScheduleById(int id, Integer userId,
 			@Valid DoctorScheduleUpdateRequest request) {
 		
@@ -175,6 +176,7 @@ public class DoctorScheduleService {
 	 * @param id
 	 * @param userId
 	 */
+	@Transactional
 	public void deleteDoctorScheduleById(int id, Integer userId) {
 		
 		Doctor doctor = getDoctorProfileDetails(userId);

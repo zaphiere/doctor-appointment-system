@@ -33,10 +33,4 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 			LocalDate dateTo,
 			Pageable pageable
 		);
-
-	
-	
-
-
-
 }

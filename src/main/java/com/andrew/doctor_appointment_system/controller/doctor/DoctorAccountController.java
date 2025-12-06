@@ -28,11 +28,6 @@ public class DoctorAccountController {
 	@Autowired
 	AuthUserUtil authUserUtil;
 	
-	@GetMapping("/test")
-	public String doctorTest() {
-		return "inside doctor";
-	}
-	
 	/**
 	 * Get authenticated doctor's profile
 	 * 
