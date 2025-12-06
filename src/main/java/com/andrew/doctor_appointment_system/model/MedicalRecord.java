@@ -54,7 +54,7 @@ public class MedicalRecord extends BaseEntity {
 	@Column(nullable = false)
 	private String doctorNotes;
 	
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = false)
 	private LocalDateTime createdAt;
 
 	@PrePersist

@@ -16,6 +16,7 @@ import com.andrew.doctor_appointment_system.repository.PatientRepository;
 import com.andrew.doctor_appointment_system.repository.UserRepository;
 import com.andrew.doctor_appointment_system.util.mapper.PatientProfileMapper;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -35,6 +36,7 @@ public class AdminPatientService {
 	 * @param request
 	 * @return
 	 */
+	@Transactional
 	public PatientProfileDTO save(Patient patient, @Valid PatientUserCreateRequest request) {
 		
 		User acc =registerUser(request);
@@ -59,6 +61,7 @@ public class AdminPatientService {
 	 * @param request
 	 * @return
 	 */
+	@Transactional
 	private User registerUser(@Valid PatientUserCreateRequest request) {
 		
 		User user = new User();
@@ -105,6 +108,7 @@ public class AdminPatientService {
 	 * @param request
 	 * @return
 	 */
+	@Transactional
 	public PatientProfileDTO updatePatientById(Integer id, @Valid PatientUserUpdateRequest request) {
 		
 		Patient patient = patientRepo.findById(id)
@@ -153,6 +157,7 @@ public class AdminPatientService {
 	 * 
 	 * @param id
 	 */
+	@Transactional
 	public void deletePatientById(Integer id) {
 		Patient patient = patientRepo.findById(id)
 				.orElseThrow(() -> new RuntimeException("Patient not found"));
