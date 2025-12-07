@@ -1,9 +1,6 @@
 package com.andrew.doctor_appointment_system.service.patient;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -51,7 +48,7 @@ public class PatientAppointmentService {
 		
 		Patient patient = getPatientProfileDetails(userId);
 		DoctorSchedule schedule = doctorScheduleRepo.findById(request.getScheduleId())
-				.orElseThrow(() -> new RuntimeException("Doctor schedule not found"));
+				.orElseThrow(() -> new EntityNotFoundException("Doctor schedule not found"));
 		
 		appointment.setPatient(patient);
 		appointment.setDoctor(schedule.getDoctor());
@@ -78,7 +75,7 @@ public class PatientAppointmentService {
 		Patient profile = patientRepo.findByUserId(userId);
 		
 		if (profile == null) {
-			throw new RuntimeException("Patient profile not found");
+			throw new EntityNotFoundException("Patient profile not found");
 		}
 		
 		
@@ -116,7 +113,7 @@ public class PatientAppointmentService {
 				 appointmentRepo.findByIdAndPatientId(id, patient.getId());
 		 
 		 if(appointment == null) {
-			 throw new RuntimeException("Appointment not found");
+			 throw new EntityNotFoundException("Appointment not found");
 		 }
 		 
 		 

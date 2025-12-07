@@ -1,7 +1,6 @@
 package com.andrew.doctor_appointment_system.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.hibernate.annotations.SQLDelete;

@@ -134,7 +134,7 @@ public class DoctorScheduleService {
 		Doctor profile = doctorRepo.findByUserId(userId);
 		
 		if (profile == null) {
-			throw new RuntimeException("Doctor profile not found");
+			throw new EntityNotFoundException("Doctor profile not found");
 		}
 		
 		return profile;
