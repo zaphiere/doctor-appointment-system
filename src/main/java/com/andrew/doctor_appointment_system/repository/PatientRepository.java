@@ -22,4 +22,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 			@Param("query") String query, 
 			Pageable pageable
 	);
+
+	Patient findByUserId(Integer userId);
 }

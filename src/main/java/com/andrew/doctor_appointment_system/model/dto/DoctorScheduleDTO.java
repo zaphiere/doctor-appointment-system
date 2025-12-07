@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class DoctorScheduleDTO {
 
+	private int id;
 	private LocalDate dateAvailable;
 	private LocalTime startTime;
 	private LocalTime endTime;
