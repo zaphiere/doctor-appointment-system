@@ -71,37 +71,37 @@ public class DoctorScheduleService {
 	public Page<DoctorScheduleDTO> getDoctorSchedulesByUserId(Integer userId, LocalDate dateFrom, LocalDate dateTo,
 			Pageable pageable) {
 		
-		Page<DoctorSchedule> schedule;
+		Page<DoctorSchedule> schedules;
 		Doctor doctor = getDoctorProfileDetails(userId);
 		
 		if (dateFrom == null && dateTo == null) {
-			schedule = doctorScheduleRepo.findByDoctorId(doctor.getId(), pageable);
+			schedules = doctorScheduleRepo.findByDoctorId(doctor.getId(), pageable);
 		} 
 		
 		else if (dateFrom != null && dateTo != null) { 
-			 schedule = doctorScheduleRepo.findByDoctorIdAndDateAvailableBetween(
+			 schedules = doctorScheduleRepo.findByDoctorIdAndDateAvailableBetween(
 		                doctor.getId(), dateFrom, dateTo, pageable
 		        );
 		}
 		
 		else if (dateFrom != null) { 
-			schedule = doctorScheduleRepo.findByDoctorIdAndDateAvailableAfter(
+			schedules = doctorScheduleRepo.findByDoctorIdAndDateAvailableAfter(
 	                doctor.getId(), dateFrom, pageable
 	        );
 		}
 		
 		else { 
-			schedule = doctorScheduleRepo.findByDoctorIdAndDateAvailableBefore(
+			schedules = doctorScheduleRepo.findByDoctorIdAndDateAvailableBefore(
 	                doctor.getId(), dateTo, pageable
 	        );
 		}
 		
-		if(schedule == null || schedule.isEmpty()) {
+		if(schedules == null || schedules.isEmpty()) {
 			throw new EntityNotFoundException("No doctor schedules found");
 		}
 			
 		
-		return schedule.map(DoctorScheduleMapper::toDTO);
+		return schedules.map(DoctorScheduleMapper::toDTO);
 	}
 
 
@@ -132,6 +132,10 @@ public class DoctorScheduleService {
 	private Doctor getDoctorProfileDetails(Integer userId) {
 		
 		Doctor profile = doctorRepo.findByUserId(userId);
+		
+		if (profile == null) {
+			throw new RuntimeException("Doctor profile not found");
+		}
 		
 		return profile;
 	}

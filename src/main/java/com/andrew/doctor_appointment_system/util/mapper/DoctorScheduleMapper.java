@@ -8,6 +8,7 @@ public class DoctorScheduleMapper {
 	public static DoctorScheduleDTO toDTO(DoctorSchedule doctorSchedule) {
 
 		DoctorScheduleDTO dto = new DoctorScheduleDTO();
+		dto.setId(doctorSchedule.getId());
 		dto.setDateAvailable(doctorSchedule.getDateAvailable());
 		dto.setStartTime(doctorSchedule.getTimeFrom());
 		dto.setEndTime(doctorSchedule.getTimeTo());
