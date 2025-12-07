@@ -1,7 +1,6 @@
 package com.andrew.doctor_appointment_system.model;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -41,7 +40,7 @@ public class Patient extends BaseEntity {
 	private String lastname;
 	
 	@Column(nullable = false)
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	@Column(nullable = false)
 	private int mobileNo;

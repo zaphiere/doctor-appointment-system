@@ -1,5 +1,4 @@
-package com.andrew.doctor_appointment_system.controller.admin;
-
+package com.andrew.doctor_appointment_system.controller.doctor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,58 +6,38 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andrew.doctor_appointment_system.config.AppConstant;
-import com.andrew.doctor_appointment_system.model.Patient;
+import com.andrew.doctor_appointment_system.model.MedicalRecord;
 import com.andrew.doctor_appointment_system.model.dto.ApiResponse;
+import com.andrew.doctor_appointment_system.model.dto.MedicalRecordDTO;
+import com.andrew.doctor_appointment_system.model.dto.MedicalRecordRequest;
 import com.andrew.doctor_appointment_system.model.dto.PatientProfileDTO;
-import com.andrew.doctor_appointment_system.model.dto.PatientUserCreateRequest;
-import com.andrew.doctor_appointment_system.model.dto.PatientUserUpdateRequest;
-import com.andrew.doctor_appointment_system.service.admin.AdminPatientService;
+import com.andrew.doctor_appointment_system.service.doctor.DoctorPatientService;
 import com.andrew.doctor_appointment_system.util.ApiResponseUtil;
+import com.andrew.doctor_appointment_system.util.AuthUserUtil;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/admin/patient")
-public class AdminPatientController {
+@RequestMapping("/api/doctor/patient")
+public class DoctorPatientController {
 	
 	@Autowired
-	private AdminPatientService service;
+	AuthUserUtil authUserUtil;
+	
+	@Autowired
+	DoctorPatientService service;
 	
 	/**
-	 * Register patient account
-	 * 
-	 * @param request
-	 * @param patient
-	 * @return
-	 */
-	@PostMapping("/register")
-	public ResponseEntity<ApiResponse> register(
-			@Valid @RequestBody PatientUserCreateRequest request,
-			Patient patient
-		) {
-		
-		PatientProfileDTO patientAcc = service.save(patient, request);
-		
-		return new ResponseEntity<>(
-			ApiResponseUtil.created("Patient Account Created Successfuly", patientAcc),
-			HttpStatus.CREATED
-		);
-	}
-	
-	/**
-	 * Search patients by query
+	 * Search patient list by query
 	 * 
 	 * @param query
 	 * @param page
@@ -76,9 +55,10 @@ public class AdminPatientController {
 		Page<PatientProfileDTO> patients = service.searchPatients(query, pageable);
 		
 		return new ResponseEntity<>(
-			ApiResponseUtil.ok("Patient search results", patients),
+			ApiResponseUtil.ok("Retrieved patient search result", patients),
 			HttpStatus.OK
 		);
+		
 	}
 	
 	/**
@@ -99,44 +79,26 @@ public class AdminPatientController {
 	}
 	
 	/**
-	 * Edit patient and user account by id
+	 * Create patient medical record
 	 * 
 	 * @param id
 	 * @param request
+	 * @param record
 	 * @return
 	 */
-	@PutMapping("/{id}/edit")
-	public ResponseEntity<ApiResponse> editPatientById(
+	@PostMapping("/{id}/records/add")
+	public ResponseEntity<ApiResponse> addPatientRecord(
 		@PathVariable Integer id,
-		@Valid @RequestBody  PatientUserUpdateRequest request
-	) {
+		@Valid @RequestBody MedicalRecordRequest request,
+		MedicalRecord record
+	){
+		Integer userId = authUserUtil.getCurrentAuthUserId();
+		MedicalRecordDTO createRecord = service.createRecord(id, userId, request, record);
 		
-		PatientProfileDTO updatedPatient = 
-				service.updatePatientById(id, request);
-	
 		return new ResponseEntity<>(
-			ApiResponseUtil.ok("Patient profile updated", updatedPatient),
+			ApiResponseUtil.created("Patient medical record added", createRecord),
 			HttpStatus.OK
 		);
 	}
-	
-	/**
-	 * Delete patient account by id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@DeleteMapping("/{id}/delete")
-	@PreAuthorize("hasRole('SUPERADMIN')")
-	public ResponseEntity<ApiResponse> deletePatientById(@PathVariable Integer id) {
-		
-		service.deletePatientById(id);
-		
-		return new ResponseEntity<>(
-			ApiResponseUtil.ok("Patient account deleted successfully", null),
-			HttpStatus.OK
-		);
-	}
-	
 
 }

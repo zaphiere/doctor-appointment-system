@@ -9,6 +9,7 @@ import lombok.Data;
 public class AppointmentDTO {
 
 	private int appointmentId;
+	private int patientId;
 	private String patientName;
 	private String doctorName;
 	private DoctorScheduleDTO doctorSchedule;
