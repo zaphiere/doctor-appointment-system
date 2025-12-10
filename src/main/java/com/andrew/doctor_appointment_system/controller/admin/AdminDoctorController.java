@@ -103,6 +103,13 @@ public class AdminDoctorController {
 		);
 	}
 	
+	/**
+	 * Edit doctor details and user account by id
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/{id}/edit")
 	public ResponseEntity<ApiResponse> editDoctorById(
 		@PathVariable int id,

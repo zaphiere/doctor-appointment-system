@@ -14,8 +14,10 @@ public class MedicalRecordDTO {
 	private int bp;
 	private int weight;
 	private String doctorNotes;
-	private int appointmentId;
 	private int doctorId;
 	private String doctorName;
 	private LocalDateTime dateCreated;
+	private int updatedByDoctorId;
+	private String updatedDoctorName;
+	private LocalDateTime dateUpdated;
 }

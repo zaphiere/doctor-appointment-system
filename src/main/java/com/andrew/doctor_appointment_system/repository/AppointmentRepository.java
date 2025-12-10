@@ -31,5 +31,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	        Pageable pageable
 	);
 
-	Appointment getAppointmentByIdAndDoctorId(int id, int id2);
+	Appointment getAppointmentByIdAndDoctorId(int appId, int docId);
+
+	void deleteAllByDoctorScheduleId(int id);
 }

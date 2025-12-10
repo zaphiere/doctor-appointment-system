@@ -34,7 +34,7 @@ public class MedicalRecord extends BaseEntity {
 	@JoinColumn(name = "patient_id", nullable = false)
 	private Patient patient;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "doctor_id", nullable = false)
 	private Doctor doctor;
 	
@@ -50,4 +50,8 @@ public class MedicalRecord extends BaseEntity {
 	@Lob
 	@Column(nullable = false)
 	private String doctorNotes;
+	
+	@ManyToOne
+	@JoinColumn(name = "updated_by_doctor_id", nullable = true)
+	private Doctor updatedByDoctor;
 }

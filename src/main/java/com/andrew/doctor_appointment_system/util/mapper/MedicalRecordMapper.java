@@ -26,7 +26,14 @@ public class MedicalRecordMapper {
 			" " +
 			record.getDoctor().getLastname()
 		);
+		dto.setUpdatedByDoctorId(record.getUpdatedByDoctor().getId());
+		dto.setUpdatedDoctorName(
+			record.getUpdatedByDoctor().getFirstname() +
+			" " +
+			record.getUpdatedByDoctor().getLastname()
+		);
 		dto.setDateCreated(record.getCreatedAt());
+		dto.setDateUpdated(record.getUpdatedAt());
 		
 		return dto;
 	}
