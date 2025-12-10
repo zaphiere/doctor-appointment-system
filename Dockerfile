@@ -1,6 +1,6 @@
 FROM openjdk:22-jdk-slim
 
-ARG JAR_FILE=target/doctor-appointment-system.jar
+ARG JAR_FILE=target/doctor-appointment-system-0.0.1-SNAPSHOT.jar
 
 COPY ${JAR_FILE} app.jar
 
