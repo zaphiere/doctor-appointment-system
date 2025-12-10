@@ -1,0 +1,1221 @@
+{
+	"info": {
+		"_postman_id": "1eae0538-52e5-458b-9628-56797dca1497",
+		"name": "Doctor Appointment System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20341236"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Admin Account",
+					"item": [
+						{
+							"name": "Admin Account Registration",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"ToBeDeleted\",\r\n    \"password\" : \"password1234\",\r\n    \"role\" : \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/register"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve Admin Account By Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDU3NTUzMSwiZXhwIjoxNzY0NTc1ODMxfQ.mA4--klnVUQy3TziVtiPBviTeITnqaV576gdIpSsxpY"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/4"
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve Current User Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDY0ODI1NiwiZXhwIjoxNzY0NjQ4NTU2fQ.1IKFVfCsrac9TlsR9rV24IIyhItU7o_36BFcicmsOIA"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/profile"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/admin/search?username=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"search"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Admin Account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/4/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDY0ODI1NiwiZXhwIjoxNzY0NjQ4NTU2fQ.1IKFVfCsrac9TlsR9rV24IIyhItU7o_36BFcicmsOIA"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/profile/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDY1MDU3MywiZXhwIjoxNzY0NjUwODczfQ.OW-dv-x8R0gKZxtnxPfHRxljq-kRyi1pf964OxVYl0g"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\" : \"PATIENT\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/2/edit"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Specialization",
+					"item": [
+						{
+							"name": "Add Specialization",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Pediatrics\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/specialization/register"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Specialization List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/specialization/list"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Specialization",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE3NjQ2ODc1NDMsImV4cCI6MTc2NDY4Nzg0M30.C0143Ag1oYB9iolAiVjZiw0UvKzh64-ADpqdQ57dN4U"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Pediatric\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/specialization/1/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete specialization",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/specialization/2/delete"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Doctor Management",
+					"item": [
+						{
+							"name": "Add Doctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"doctor9\",\r\n  \"password\": \"password1234\",\r\n  \"firstname\": \"Isko\",\r\n  \"lastname\": \"Moreno\",\r\n  \"mobileNo\": \"1234567890\",\r\n  \"email\": \"kamote@mail\",\r\n  \"specializationIds\": [1, 4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/doctor/register"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Doctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"specializationIds\": [2, 8]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/doctor/2/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Doctor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/doctor/5/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Doctors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/admin/doctor/search?query=&specId=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"doctor",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": ""
+										},
+										{
+											"key": "specId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Doctor Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/doctor/2"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patient Management",
+					"item": [
+						{
+							"name": "Add Patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"testPatient\",\r\n  \"password\": \"password1234\",\r\n  \"firstname\": \"Jose\",\r\n  \"lastname\": \"Divinagracia\",\r\n  \"mobileNo\": \"1234567890\",\r\n  \"birthdate\": \"1990-07-29\",\r\n  \"email\": \"kamote@mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/patient/register"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Patient List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/admin/patient/search?query=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"patient",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Patient Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/patient/4"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Patient Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"kamoteto\",\r\n  \"password\": \"password1234\",\r\n  \"firstname\": \"Nonoy\",\r\n  \"lastname\": \"Kalyente\",\r\n  \"mobileNo\": \"1234567890\",\r\n  \"birthdate\": \"1990-07-29\",\r\n  \"email\": \"kamote@mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/admin/patient/5/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Patient",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{SuperAdmin}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/api/admin/patient/4/delete"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Profile Management",
+					"item": [
+						{
+							"name": "Edit Doctor Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkb2N0b3IxZWRpdCIsImlhdCI6MTc2NDkyNjYxOSwiZXhwIjoxNzY3NTE4NjE5fQ.7NuUHjPxs5YomxOk9AJT9Ys6HG-tYII2xIaeYRVIWao"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\" : \"jepoy\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/profile/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Schedule",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateAvailable\": \"2026-01-29\",\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"07:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/schedule/create"
+							},
+							"response": []
+						},
+						{
+							"name": "View Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/doctor/profile"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Schedule management",
+					"item": [
+						{
+							"name": "View Schedules",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/doctor/schedule/list?dateFrom=2025-12-10&dateTo=2025-12-18",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"doctor",
+										"schedule",
+										"list"
+									],
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": "2025-12-10"
+										},
+										{
+											"key": "dateTo",
+											"value": "2025-12-18"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Schedule Details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/schedule/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Schedule",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"startTime\": \"09:00\",\r\n    \"endTime\": \"07:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/schedule/1/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Schedule",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/api/doctor/schedule/2/delete"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Consultation Management",
+					"item": [
+						{
+							"name": "Search Appointments",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/doctor/appointment/search?name=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"doctor",
+										"appointment",
+										"search"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Appointment Details",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/appointment/6"
+							},
+							"response": []
+						},
+						{
+							"name": "Change status to finish",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/appointment/6/finished"
+							},
+							"response": []
+						},
+						{
+							"name": "Change status to cancelled",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/appointment/6/cancel"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Patient Management",
+					"item": [
+						{
+							"name": "View Patient Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/doctor/patient/6"
+							},
+							"response": []
+						},
+						{
+							"name": "View List of Patient's Records",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/doctor/patient/6/record/list"
+							},
+							"response": []
+						},
+						{
+							"name": "View List of Patient's Single record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/doctor/patient/5/record/3"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Patient Record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"weight\" : 85,\r\n    \"bp\" : 90,\r\n    \"doctorNotes\" : \"So gay\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/doctor/patient/6/record/add"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Patient List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{doctor}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/doctor/patient/search?query=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"doctor",
+										"patient",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "Profle Management",
+					"item": [
+						{
+							"name": "Register(No Auth)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"toBeDeletedPatient\",\r\n  \"password\": \"password1234\",\r\n  \"firstname\": \"Nonoy\",\r\n  \"lastname\": \"Kalyente\",\r\n  \"mobileNo\": \"1234567890\",\r\n  \"birthdate\": \"1990-07-29\",\r\n  \"email\": \"kamote@mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/patient/register"
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"firstname\": \"Buboy\",\r\n  \"lastname\": \"Syhuco\",\r\n  \"mobileNo\": \"1234567890\",\r\n  \"birthdate\": \"1990-07-29\",\r\n  \"email\": \"kamote@mail\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/patient/profile/edit"
+							},
+							"response": []
+						},
+						{
+							"name": "View Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient-2}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/profile"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Doctor Information Management",
+					"item": [
+						{
+							"name": "Search Doctors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/patient/doctor/search?query=&specId=7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"patient",
+										"doctor",
+										"search"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": ""
+										},
+										{
+											"key": "specId",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Doctor Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/doctor/2"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Doctor Schedule",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/doctor/2/schedule/search"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Consultation Booking Management",
+					"item": [
+						{
+							"name": "Book New Appointment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"scheduleId\" : 4,\r\n    \"consultationDetails\" : \"ishogeeeeeyyyy\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/patient/appointment/book"
+							},
+							"response": []
+						},
+						{
+							"name": "Booking List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient-2}}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/appointment/list"
+							},
+							"response": []
+						},
+						{
+							"name": "Booking Details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/appointment/6"
+							},
+							"response": []
+						},
+						{
+							"name": "Confirm Booking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient-2}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"time\" : \"13:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api/patient/appointment/5/confirm"
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel Booking",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{patient}}"
+									}
+								},
+								"method": "PUT",
+								"header": [],
+								"url": "http://localhost:8080/api/patient/appointment/3/cancel"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Medical Records",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "JWT Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "64c8684b-62e6-4e09-ae41-33f543ab57aa",
+						"username": "user"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"doctor1\",\r\n    \"password\" : \"password1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/login"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "SuperAdmin",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "admin",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "doctor",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "patient",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "doctor-new",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "patient-2",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
