@@ -1,8 +1,6 @@
-package com.andrew.doctor_appointment_system.service.admin;
+package com.andrew.doctor_appointment_system.service.patient;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +14,12 @@ import com.andrew.doctor_appointment_system.repository.PatientRepository;
 import com.andrew.doctor_appointment_system.repository.UserRepository;
 import com.andrew.doctor_appointment_system.util.mapper.PatientProfileMapper;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
-public class AdminPatientService {
-	
+public class PatientAccountService {
+
 	@Autowired
 	private UserRepository userRepo;
 	
@@ -38,26 +35,21 @@ public class AdminPatientService {
 	 * @return
 	 */
 	@Transactional
-	public PatientProfileDTO save(Patient patient, @Valid PatientUserCreateRequest request) {
+	public Patient save(Patient patient, @Valid PatientUserCreateRequest request) {
 		
-		User acc =registerUser(request);
-		
-		patient.setUser(acc);
+		User acc = registerUser(request);
 		patient.setFirstname(request.getFirstname());
 		patient.setLastname(request.getLastname());
 		patient.setBirthdate(request.getBirthdate());
 		patient.setMobileNo(request.getMobileNo());
 		patient.setEmail(request.getEmail());
+		patient.setUser(acc);
 		
-		Patient savePatient = patientRepo.save(patient);
-		
-		PatientProfileDTO dto = PatientProfileMapper.toDTO(savePatient, request.getPassword());
-		
-		return dto;
+		return patientRepo.save(patient);
 	}
 
 	/**
-	 * Register user account
+	 * Register patient user account
 	 * 
 	 * @param request
 	 * @return
@@ -66,85 +58,50 @@ public class AdminPatientService {
 	private User registerUser(@Valid PatientUserCreateRequest request) {
 		
 		User user = new User();
-		
 		user.setUsername(request.getUsername());
 		user.setPassword(encoder.encode(request.getPassword()));
 		user.setRole(Role.PATIENT);
+		
 		
 		return userRepo.save(user);
 	}
 
 	/**
-	 * Search patients by query
+	 * Update patient profile
 	 * 
-	 * @param query
-	 * @param pageable
-	 * @return
-	 */
-	public Page<PatientProfileDTO> searchPatients(String query, Pageable pageable) {
-		
-		Page<Patient> patients = patientRepo.searchPatients(query, pageable);
-		
-		return patients.map(PatientProfileMapper::toDTO);
-	}
-
-	/**
-	 * Get patient by id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public PatientProfileDTO getPatientById(Integer id) {
-		
-		Patient patient = patientRepo.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Patient not found"));
-		
-		return PatientProfileMapper.toDTO(patient);
-	}
-
-	/**
-	 * Update patient and user account by id
-	 * 
-	 * @param id
+	 * @param userId
 	 * @param request
 	 * @return
 	 */
-	@Transactional
-	public PatientProfileDTO updatePatientById(Integer id, @Valid PatientUserUpdateRequest request) {
+	public PatientProfileDTO update(Integer userId, @Valid PatientUserUpdateRequest request) {
 		
-		Patient patient = patientRepo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Patient not found"));
-		
+		Patient patient = getPatientProfileDetails(userId);
 		User user = patient.getUser();
 		String plainPassword = null;
 		
-		if (request.getUsername() != null && !request.getUsername().isBlank()) {
+		if(request.getUsername() != null && !request.getUsername().isEmpty()) {
 			user.setUsername(request.getUsername());
 		}
 		
-		if (request.getPassword() != null && !request.getPassword().isBlank()) {
+		if(request.getPassword() != null && !request.getPassword().isEmpty()) {
 			plainPassword = request.getPassword();
 			user.setPassword(encoder.encode(request.getPassword()));
 		}
 		
-		if (request.getFirstname() != null && !request.getFirstname().isBlank()) {
+		if(request.getFirstname() != null && !request.getFirstname().isEmpty()) {
 			patient.setFirstname(request.getFirstname());
 		}
 		
-		if (request.getLastname() != null && !request.getLastname().isBlank()) {
+		if(request.getLastname() != null && !request.getLastname().isEmpty()) {
 			patient.setLastname(request.getLastname());
 		}
 		
-		if (request.getBirthdate() != null) {
+		if(request.getBirthdate() != null) {
 			patient.setBirthdate(request.getBirthdate());
 		}
 		
 		if (request.getMobileNo() != null) {
 			patient.setMobileNo(request.getMobileNo());
-		}
-		
-		if (request.getEmail() != null && !request.getEmail().isBlank()) {
-			patient.setEmail(request.getEmail());
 		}
 		
 		userRepo.save(user);
@@ -154,19 +111,29 @@ public class AdminPatientService {
 	}
 
 	/**
-	 * Delete patient by id
+	 * Get patient profile details by user id
 	 * 
-	 * @param id
+	 * @param userId
+	 * @return
 	 */
-	@Transactional
-	public void deletePatientById(Integer id) {
-		Patient patient = patientRepo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Patient not found"));
+	private Patient getPatientProfileDetails(Integer userId) {
 		
-		User user = patient.getUser();
+		Patient profile = patientRepo.findByUserId(userId);
 		
-		patientRepo.delete(patient);
-		userRepo.delete(user);
+		return profile;
 	}
 
+	
+	/**
+	 * Get patient profile by user id
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public PatientProfileDTO getProfile(Integer userId) {
+		
+		Patient patient = getPatientProfileDetails(userId);
+		
+		return PatientProfileMapper.toDTO(patient, null);
+	}
 }

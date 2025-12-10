@@ -1,13 +1,12 @@
 package com.andrew.doctor_appointment_system.model.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.andrew.doctor_appointment_system.validation.UniqueUsername;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -49,7 +48,7 @@ public class PatientUserUpdateRequest {
 	private String lastname;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	private Integer mobileNo;
 	

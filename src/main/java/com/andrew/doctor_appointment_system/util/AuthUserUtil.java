@@ -27,5 +27,13 @@ public class AuthUserUtil {
 		
 		return adminService.findByUsername(auth.getName());
 	}
+	
+	
+	public Integer getCurrentAuthUserId() {
+		
+		return  getCurrentAuthUser()
+				.orElseThrow(() -> new RuntimeException("Unauthorized access"))
+				.getId();
+	}
 
 }

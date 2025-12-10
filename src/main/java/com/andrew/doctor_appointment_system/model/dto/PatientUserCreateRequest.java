@@ -1,7 +1,6 @@
 package com.andrew.doctor_appointment_system.model.dto;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.andrew.doctor_appointment_system.validation.UniqueUsername;
@@ -64,7 +63,7 @@ public class PatientUserCreateRequest {
 		message = "Birthdate is required"
 	)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	@NotNull(
 		message = "Mobile no is required"

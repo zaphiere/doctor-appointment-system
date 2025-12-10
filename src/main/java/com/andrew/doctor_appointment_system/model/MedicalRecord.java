@@ -1,7 +1,5 @@
 package com.andrew.doctor_appointment_system.model;
 
-import java.time.LocalDateTime;
-
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -14,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,9 +34,9 @@ public class MedicalRecord extends BaseEntity {
 	@JoinColumn(name = "patient_id", nullable = false)
 	private Patient patient;
 	
-	@OneToOne
-	@JoinColumn(name = "appointment_id", nullable = false)
-	private Appointment appointment;
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private Doctor doctor;
 	
 	@Column(nullable = false)
 	private int age;
@@ -54,11 +51,7 @@ public class MedicalRecord extends BaseEntity {
 	@Column(nullable = false)
 	private String doctorNotes;
 	
-	@Column(nullable = false, updatable = false)
-	private LocalDateTime createdAt;
-
-	@PrePersist
-	public void prePersist() {
-	    createdAt = LocalDateTime.now();
-	}
+	@ManyToOne
+	@JoinColumn(name = "updated_by_doctor_id", nullable = true)
+	private Doctor updatedByDoctor;
 }

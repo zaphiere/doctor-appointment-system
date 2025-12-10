@@ -88,9 +88,7 @@ public class AdminPatientController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<ApiResponse> getPatientById(
-			@PathVariable Integer id
-		) {
+	public ResponseEntity<ApiResponse> getPatientById(@PathVariable Integer id) {
 		
 		PatientProfileDTO patient = service.getPatientById(id);
 		

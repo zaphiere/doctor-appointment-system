@@ -1,6 +1,6 @@
 package com.andrew.doctor_appointment_system.model.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class PatientProfileDTO {
 	private int patientId;
 	private String firstname;
 	private String lastname;
-	private Date birthdate;
+	private LocalDate birthdate;
 	private int mobileNo;
 	private String email;
 }
