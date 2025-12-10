@@ -16,6 +16,7 @@ import com.andrew.doctor_appointment_system.repository.PatientRepository;
 import com.andrew.doctor_appointment_system.repository.UserRepository;
 import com.andrew.doctor_appointment_system.util.mapper.PatientProfileMapper;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -82,9 +83,9 @@ public class AdminPatientService {
 	 */
 	public Page<PatientProfileDTO> searchPatients(String query, Pageable pageable) {
 		
-		Page<Patient> patientPage = patientRepo.searchPatients(query, pageable);
+		Page<Patient> patients = patientRepo.searchPatients(query, pageable);
 		
-		return patientPage.map(PatientProfileMapper::toDTO);
+		return patients.map(PatientProfileMapper::toDTO);
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class AdminPatientService {
 	public PatientProfileDTO getPatientById(Integer id) {
 		
 		Patient patient = patientRepo.findById(id)
-				.orElseThrow(() -> new RuntimeException("Patient not found"));
+				.orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 		
 		return PatientProfileMapper.toDTO(patient);
 	}

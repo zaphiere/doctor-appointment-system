@@ -125,9 +125,9 @@ public class AdminDoctorService {
 	 */
 	public Page<DoctorSearchResultDTO> searchDoctors(String query, Integer specId, Pageable pageable) {
 		
-		Page<Doctor> doctorPage = doctorRepo.searchDoctors(query, specId, pageable);
+		Page<Doctor> doctors = doctorRepo.searchDoctors(query, specId, pageable);
 		
-		return doctorPage.map(DoctorSearchMapper::toDTO);
+		return doctors.map(DoctorSearchMapper::toDTO);
 	}
 
 	/**

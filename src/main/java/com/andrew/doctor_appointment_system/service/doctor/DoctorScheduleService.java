@@ -12,6 +12,7 @@ import com.andrew.doctor_appointment_system.model.DoctorSchedule;
 import com.andrew.doctor_appointment_system.model.dto.DoctorScheduleDTO;
 import com.andrew.doctor_appointment_system.model.dto.DoctorScheduleRequest;
 import com.andrew.doctor_appointment_system.model.dto.DoctorScheduleUpdateRequest;
+import com.andrew.doctor_appointment_system.repository.AppointmentRepository;
 import com.andrew.doctor_appointment_system.repository.DoctorRepository;
 import com.andrew.doctor_appointment_system.repository.DoctorScheduleRepository;
 import com.andrew.doctor_appointment_system.util.mapper.DoctorScheduleMapper;
@@ -28,6 +29,9 @@ public class DoctorScheduleService {
 	
 	@Autowired
 	private DoctorScheduleRepository doctorScheduleRepo;
+	
+	@Autowired
+	private AppointmentRepository appRepo;
 	
 	/**
 	 * Create doctor schedule
@@ -176,6 +180,7 @@ public class DoctorScheduleService {
 
 	/**
 	 * Delete doctor schedule by id
+	 * Additionally will also delete related appointments
 	 * 
 	 * @param id
 	 * @param userId
@@ -190,6 +195,7 @@ public class DoctorScheduleService {
 			throw new EntityNotFoundException("Doctor schedule not found");
 		}
 		
+		appRepo.deleteAllByDoctorScheduleId(schedule.getId());
 		doctorScheduleRepo.delete(schedule);
 	}
 }

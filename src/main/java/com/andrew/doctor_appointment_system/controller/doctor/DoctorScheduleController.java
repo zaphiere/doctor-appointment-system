@@ -149,6 +149,7 @@ public class DoctorScheduleController {
 	
 	/**
 	 * Delete doctor schedule by id
+	 * Will also delete related appointments
 	 * 
 	 * @param id
 	 * @return

@@ -1,6 +1,6 @@
 package com.andrew.doctor_appointment_system.model.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -48,7 +48,7 @@ public class PatientUserUpdateRequest {
 	private String lastname;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	private Integer mobileNo;
 	

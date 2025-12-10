@@ -10,6 +10,7 @@ public class ConsultationBookingMapper {
 		AppointmentDTO dto = new AppointmentDTO();
 		
 		dto.setAppointmentId(appointment.getId());
+		dto.setPatientId(appointment.getPatient().getId());
 		dto.setPatientName(
 				appointment.getPatient().getFirstname() + 
 				" " + appointment.getPatient().getLastname());
